@@ -28,6 +28,8 @@ Questions: What do I need to build and run the project from the source code?
 
 ### Build / Run
 
+Questions: How do I build, compile and run the app?
+
 > npm start
 >
 > node server.js
