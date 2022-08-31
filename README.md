@@ -50,6 +50,16 @@ using -:* "deleted: server.js -Deleted server to fix bugs"
 
 *Type* git show 1acd086 *for example*
 
+### Directory Structure
+
+```html
+í³¦src
+ â”£ í³œApp.css
+  â”£ í³œApp.js
+   â”£ í³œindex.css
+    â”— í³œindex.js
+```
+
 # SCRIPT
 
 ## Database
