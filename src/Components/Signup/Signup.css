@@ -1,0 +1,150 @@
+.Signup-container {
+  width: 70%;
+  margin: 0 auto;
+  background-color: #333;
+  padding: 1em;
+  color: white;
+}
+
+.Signup-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  padding-bottom: 1rem;
+}
+
+.Signup-container h1 {
+  text-align: center;
+}
+
+.Signup-container a,
+.Signup-container a:visited {
+  color: #fff;
+}
+
+.Signup-container input[type="text"],
+.Signup-container input[type="password"],
+.Signup-container input[type="email"],
+.Signup-container button,
+.Signup-container textarea {
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.Password-container {
+  position: relative;
+}
+
+.Password-container>input {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.Password-icon {
+  position: absolute;
+  right: 1%;
+  top: 15%;
+  font-size: 25px;
+  z-index: 2;
+  color: black;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+.Signup-container label {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.Signup-container label>* {
+  margin: 0;
+  padding: 0;
+}
+
+.Signup-container label,
+.Signup-container button {
+  margin-top: 1rem;
+}
+
+.Signup-container button {
+  padding: 0.5rem;
+}
+
+.Signup-container .Instructions {
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
+  font-size: 14px;
+}
+
+
+.Signup-container .Instructions>svg {
+  margin: 0;
+  padding: 0;
+  margin-right: 0.25rem;
+}
+
+.Check-icon,
+.Times-icon {
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.Circle-icon {
+  font-size: 25px;
+}
+
+.Signup-container .Offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.Signup-container .Hide {
+  display: none;
+}
+
+.Signup-container .Valid {
+  color: limegreen;
+  margin-left: 0.25rem;
+}
+
+.Signup-container .Invalid {
+  color: red;
+  margin-left: 0.25rem;
+}
+
+.Signup-container .Errmsg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.Signup-container .Line {
+  display: inline-block;
+}
+
+
+@media(max-width:1300px) {
+  .Signup-container {
+    width: 70%;
+  }
+}
