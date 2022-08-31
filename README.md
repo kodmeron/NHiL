@@ -26,6 +26,12 @@ Questions: What do I need to build and run the project from the source code?
 >
 > Heroku
 
+### Build / Run
+
+> npm start
+>
+> node server.js
+
 # SCRIPT
 
 ## Database
