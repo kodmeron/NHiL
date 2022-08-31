@@ -18,6 +18,8 @@
 
 ### Build / Run
 
+> npm install
+>
 > npm start
 >
 > node server.js
@@ -46,7 +48,7 @@ working file or folder like this:* "deleted: server.js"
 *You can also add more text after the filename to specify the action  
 using -:* "deleted: server.js -Deleted server to fix bugs"
 
-*Type* git show *for example*
+*Type* git show 1acd086 *for example*
 
 # SCRIPT
 
