@@ -52,7 +52,7 @@ using -:* "deleted: server.js -Deleted server to fix bugs"
 
 ### Directory Structure
 
-```html
+```javascript
 í³¦src
  â”£ í³œApp.css
   â”£ í³œApp.js
