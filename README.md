@@ -8,19 +8,9 @@
 
 # ONBOARDING
 
-## Database
-
-## Backend
-
-## Frontend
-
 ### Prerequisites
 
-Questions: What do I need to build and run the project from the source code?
-
 > node
->
-> MongoDB
 >
 > Docker
 >
@@ -28,11 +18,30 @@ Questions: What do I need to build and run the project from the source code?
 
 ### Build / Run
 
-Questions: How do I build, compile and run the app?
-
 > npm start
 >
 > node server.js
+
+### Configuration
+
+**Network Dependencies**
+
+> MongoDB
+
+**File Dependencies**
+**Internal Behavior**
+**Debug Parameters**
+
+### Usage
+
+Load image of app here
+
+### GIT
+
+**Git commit structure**
+
+*Write the commit message by first specifying the action followed by the
+working file or folder like this:* "deleted: server.js"
 
 # SCRIPT
 
