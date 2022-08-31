@@ -40,8 +40,13 @@ Load image of app here
 
 **Git commit structure**
 
-*Write the commit message by first specifying the action followed by the
+*Write the commit message by first specifying the action followed by the  
 working file or folder like this:* "deleted: server.js"
+
+*You can also add more text after the filename to specify the action  
+using -:* "deleted: server.js -Deleted server to fix bugs"
+
+*Type* git show *for example*
 
 # SCRIPT
 
