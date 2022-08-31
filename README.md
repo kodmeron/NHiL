@@ -42,13 +42,35 @@ Load image of app here
 
 **Git commit structure**
 
-*Write the commit message by first specifying the action followed by the  
-working file or folder like this:* "deleted: server.js"
+The commit type can include the following:
 
-*You can also add more text after the filename to specify the action  
-using -:* "deleted: server.js -Deleted server to fix bugs"
+- feat
+- fix
+- docs
+- style
+- test
+- revert
+- chore
 
-*Type* git show 1acd086 *for example*
+**Good**
+> feat: improve performance with lazy load implementation for images
+>
+> chore: update npm dependency to latest version
+>
+> fix: bug preventing users from submitting the subscribe form
+>
+> update: incorrect client phone number within footer body per client request
+
+**Bad**
+> fixed bug on landing page
+>
+> Changed style
+>
+> oops
+>
+> I think I fixed it this time?
+>
+> *empty commit messages*
 
 ### Directory Structure
 
