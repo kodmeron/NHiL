@@ -95,7 +95,37 @@ The commit type can include the following:
 ## Database
 
 ## Backend
+Fetch Docker container:
+```
+$ docker pull kodmeron/crackend
+```
+
+To list your Docker containers:
+```
+$ docker images
+```
+
+Run the container:
+```
+$ docker run --rm -p 8080:3000 kodmeron/crackend
+```
+
+Ctrl + c to quit.
 
 ## Frontend
+Clone the NHiL github repo:
+```
+$ git clone https://github.com/kodmeron/NHiL.git
+```
+
+cd into the project and write:
+```
+$ npm install
+```
+
+In order to start the project, write:
+```
+$ npm start
+```
 
 # TEST
