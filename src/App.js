@@ -1,9 +1,18 @@
+import React from "react"
 import './App.css';
 import "leaflet/dist/leaflet.css"
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Icon } from "leaflet";
+import { MapContainer, TileLayer } from 'react-leaflet';
 
 function App() {
+
+  const [data, setData] = React.useState(null);
+
+  React.useEffect(() => {
+    fetch("/api")
+      .then((res) => res.json())
+      .then((data) => setData(data.message));
+  }, []);
+
   return (
     <div className='leaflet-container'>
       <MapContainer center={[59.32, 18.07]} zoom={14} scrollWheelZoom={false}>
@@ -12,6 +21,7 @@ function App() {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
       </MapContainer>
+      <p style={{ color: '#000000' }}>{!data ? "Laddar..." : data}</p>
     </div>
   );
 }
