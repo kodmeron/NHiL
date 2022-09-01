@@ -5,8 +5,19 @@
 To start code on databases you have to the database structure and what patch the databases are in so if you decide to modify the database you know which patch and version on the database we know
 
 ## Backend
-
+```
+$ git clone https://github.com/kodmeron/crackend.git
+$ cd project
+$ npm i
+```
 ## Frontend
+```
+$ git clone https://github.com/kodmeron/NHiL.git
+$ cd project
+$ npm i
+$ npm start
+```
+
 
 ## Testers
 
