@@ -1,25 +1,18 @@
+import React from "react"
 import './App.css';
 import "leaflet/dist/leaflet.css"
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Icon } from "leaflet";
-import { useEffect, useState } from 'react';
+import { MapContainer, TileLayer } from 'react-leaflet';
 
 function App() {
-  const [fetchData, setFetchData] = useState({})
 
-  const fetchDataFunction = async () => {
-    try {
-      const response = await fetch('http://localhost:3001/text')
-      const responseData = await response.json()
-      setFetchData(responseData)
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
-  useEffect(() => {
-    fetchDataFunction()
-  }, [])
+  const [data, setData] = React.useState(null);
+
+  React.useEffect(() => {
+    fetch("/api")
+      .then((res) => res.json())
+      .then((data) => setData(data.message));
+  }, []);
+
   return (
     <div className='leaflet-container'>
       {fetchData ? <h1>{fetchData.message}</h1> : null}
@@ -29,6 +22,7 @@ function App() {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
       </MapContainer>
+      <p style={{ color: '#000000' }}>{!data ? "Laddar..." : data}</p>
     </div>
   );
 }
