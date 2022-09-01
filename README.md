@@ -2,9 +2,15 @@
 
 ## Database
 
-## Backend 
+To start code on databases you have to the database structure and what patch the databases are in so if you decide to modify the database you know which patch and version on the database we know
+
+## Backend
 
 ## Frontend
+
+## Testers
+
+The testers needs to know what test-driven developement we use so that the testers know which documentain to watch and how to write the test cases before the software is fully developed
 
 # ONBOARDING
 
@@ -53,6 +59,7 @@ The commit type can include the following:
 - chore
 
 **Good**
+
 > feat: improve performance with lazy load implementation for images
 >
 > chore: update npm dependency to latest version
@@ -62,6 +69,7 @@ The commit type can include the following:
 > update: incorrect client phone number within footer body per client request
 
 **Bad**
+
 > fixed bug on landing page
 >
 > Changed style
@@ -70,16 +78,16 @@ The commit type can include the following:
 >
 > I think I fixed it this time?
 >
-> *empty commit messages*
+> _empty commit messages_
 
 ### Directory Structure
 
 ```javascript
-í³¦src
- â”£ í³œApp.css
-  â”£ í³œApp.js
-   â”£ í³œindex.css
-    â”— í³œindex.js
+ï¿½ï¿½ï¿½src
+ â”£ ï¿½ï¿½ï¿½App.css
+  â”£ ï¿½ï¿½ï¿½App.js
+   â”£ ï¿½ï¿½ï¿½index.css
+    â”— ï¿½ï¿½ï¿½index.js
 ```
 
 # SCRIPT
