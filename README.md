@@ -2,26 +2,9 @@
 
 ## Database
 
-To start code on databases you have to the database structure and what patch the databases are in so if you decide to modify the database you know which patch and version on the database we know
+## Backend 
 
-## Backend
-```
-$ git clone https://github.com/kodmeron/crackend.git
-$ cd project
-$ npm i
-```
 ## Frontend
-```
-$ git clone https://github.com/kodmeron/NHiL.git
-$ cd project
-$ npm i
-$ npm start
-```
-
-
-## Testers
-
-The testers needs to know what test-driven developement we use so that the testers know which documentain to watch and how to write the test cases before the software is fully developed
 
 # ONBOARDING
 
@@ -70,7 +53,6 @@ The commit type can include the following:
 - chore
 
 **Good**
-
 > feat: improve performance with lazy load implementation for images
 >
 > chore: update npm dependency to latest version
@@ -80,7 +62,6 @@ The commit type can include the following:
 > update: incorrect client phone number within footer body per client request
 
 **Bad**
-
 > fixed bug on landing page
 >
 > Changed style
@@ -89,7 +70,7 @@ The commit type can include the following:
 >
 > I think I fixed it this time?
 >
-> _empty commit messages_
+> *empty commit messages*
 
 ### Directory Structure
 
@@ -106,37 +87,28 @@ The commit type can include the following:
 ## Database
 
 ## Backend
-Fetch Docker container:
-```
-$ docker pull kodmeron/crackend
-```
-
-To list your Docker containers:
-```
-$ docker images
-```
-
-Run the container:
-```
-$ docker run --rm -p 8080:3000 kodmeron/crackend
-```
-
-Ctrl + c to quit.
 
 ## Frontend
-Clone the NHiL github repo:
-```
-$ git clone https://github.com/kodmeron/NHiL.git
-```
-
-cd into the project and write:
-```
-$ npm install
-```
-
-In order to start the project, write:
-```
-$ npm start
-```
 
 # TEST
+
+## Jasmine
+
+Make sure these lines are included in your package.json
+
+"scripts": {
+  "test": "jasmine"
+}, 
+
+If jasmine for some reason isn't found/installed: 
+
+> npm i --save-dev jasmine
+
+To test if it works:
+
+> npm test init
+
+Run the tests!
+
+> npm test 
+
