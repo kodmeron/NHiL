@@ -140,3 +140,17 @@ $ npm start
 ```
 
 # TEST
+
+## Jasmine
+
+If Jasmine for some reason isn't installed:
+
+> npm install --save jasmine
+
+look if it is installed correctly
+
+> npm test init
+
+Run the tests!!
+
+> npm test
