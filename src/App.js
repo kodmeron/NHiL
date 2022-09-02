@@ -22,7 +22,7 @@ function App() {
   }, [])
   return (
     <div className='leaflet-container'>
-      {fetchData ? <h1>{fetchData.message}</h1> : null}
+      <h1>{!fetchData ? 'Fetching...' : fetchData.message}</h1>
       <MapContainer center={[59.32, 18.07]} zoom={14} scrollWheelZoom={false}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
