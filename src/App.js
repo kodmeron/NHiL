@@ -10,7 +10,7 @@ function App() {
 
   const fetchDataFunction = async () => {
     try {
-      const response = await fetch('http://localhost:3001/text')
+      const response = await fetch('/text')
       const responseData = await response.json()
       setFetchData(responseData)
     }
