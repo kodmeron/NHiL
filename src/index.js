@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import Signup from './Components/Signup/Signup';
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -9,6 +10,7 @@ root.render(
   <Router>
     <Routes>
       <Route path="/" element={<App />} />
+      <Route path="/signup" element={<Signup />} />
     </Routes>
   </Router>
 );
