@@ -10,23 +10,23 @@ import {
 } from "firebase/auth";
 
 const firebaseConfig = {
-  
+
   apiKey: "AIzaSyAe5WnwUJjsyQAD5_uHGoDnIp6Z4hHFDTs",
-  
+
   authDomain: "nhil-4830c.firebaseapp.com",
-  
+
   databaseURL: "https://nhil-4830c-default-rtdb.europe-west1.firebasedatabase.app",
-  
+
   projectId: "nhil-4830c",
-  
+
   storageBucket: "nhil-4830c.appspot.com",
-  
+
   messagingSenderId: "670568431262",
-  
+
   appId: "1:670568431262:web:d0addf2e1bf41d1e95058f",
-  
+
   measurementId: "G-QL1SDPJ73Z"
-  
+
 };
 
 
