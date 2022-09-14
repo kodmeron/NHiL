@@ -206,6 +206,8 @@ Make a folder called \_\_tests\_\_ and make a file called supertest.js in the fo
 ```js
 const request = require("supertest");
 
+const HOST = process.env.HOST || "https://petstore.swagger.io";
+
 afterAll(async () => {
   await new Promise((resolve) => setTimeout(() => resolve(), 500)); // avoid jest open handle error
 });
@@ -216,18 +218,16 @@ describe("When testing jest", () => {
       expect(1).toBe(1);
     });
   });
+```
 
-  describe("given i have a non failing test", () => {
-    it("should be two", () => {
-      expect(2).toBe(2);
-    });
-  });
-});
+This code tests the petstore API:
 
-describe("When testing jest", () => {
-  describe("given i have a non failing test", () => {
-    it.skip("should fail", () => {
-      expect(1).toBe(2);
+```js
+describe("Testing petshop", () => {
+  describe("given a broken url", () => {
+    it("should return status 404", () => {
+      const container = request(HOST);
+      container.get("/whatever").expect(404);
     });
   });
 });
