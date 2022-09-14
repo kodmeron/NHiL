@@ -5,19 +5,21 @@
 To start code on databases you have to the database structure and what patch the databases are in so if you decide to modify the database you know which patch and version on the database we know
 
 ## Backend
+
 ```
  git clone https://github.com/kodmeron/crackend.git
  cd project
  npm i
 ```
+
 ## Frontend
+
 ```
  git clone https://github.com/kodmeron/NHiL.git
  cd project
  npm i
  npm start
 ```
-
 
 ## Testers
 
@@ -106,17 +108,21 @@ The commit type can include the following:
 ## Database
 
 ## Backend
+
 Fetch Docker container:
+
 ```
 $ docker pull kodmeron/crackend
 ```
 
 To list your Docker containers:
+
 ```
 $ docker images
 ```
 
 Run the container:
+
 ```
 $ docker run --rm -p 8080:3000 kodmeron/crackend
 ```
@@ -124,17 +130,21 @@ $ docker run --rm -p 8080:3000 kodmeron/crackend
 Ctrl + c to quit.
 
 ## Frontend
+
 Clone the NHiL github repo:
+
 ```
 $ git clone https://github.com/kodmeron/NHiL.git
 ```
 
 cd into the project and write:
+
 ```
 $ npm install
 ```
 
 In order to start the project, write:
+
 ```
 $ npm start
 ```
@@ -154,3 +164,71 @@ look if it is installed correctly
 Run the tests!!
 
 > npm test
+
+# TEST API
+
+Install jest and supertest:
+
+> npm install jest
+
+> npm install supertest
+
+Check if it is intalled correctly by looking inside the package.json file
+
+This is what you should see:
+
+```json
+{
+  "name": "edu-api-testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "jest --verbose",
+    "test": "jest"
+  }
+}
+```
+
+Make a folder called tests and make a file called supertest.js in the folder
+
+```
+> mkdir __tests__
+
+> cd __tests__
+
+> touch supertest.js
+
+```
+
+## supertest.js
+
+```js
+const request = require("supertest");
+
+afterAll(async () => {
+  await new Promise((resolve) => setTimeout(() => resolve(), 500)); // avoid jest open handle error
+});
+
+describe("When testing jest", () => {
+  describe("given i have a non failing test", () => {
+    it("should be one", () => {
+      expect(1).toBe(1);
+    });
+  });
+
+  describe("given i have a non failing test", () => {
+    it("should be two", () => {
+      expect(2).toBe(2);
+    });
+  });
+});
+
+describe("When testing jest", () => {
+  describe("given i have a non failing test", () => {
+    it.skip("should fail", () => {
+      expect(1).toBe(2);
+    });
+  });
+});
+```
