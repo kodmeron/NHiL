@@ -190,7 +190,7 @@ This is what you should see:
 }
 ```
 
-Make a folder called tests and make a file called supertest.js in the folder
+Make a folder called \_\_tests\_\_ and make a file called supertest.js in the folder
 
 ```
 > mkdir __tests__
