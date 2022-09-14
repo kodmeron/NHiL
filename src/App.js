@@ -1,10 +1,11 @@
 import './App.css';
 import "leaflet/dist/leaflet.css"
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import { Icon } from "leaflet";
 import { useEffect, useState, useRef } from 'react';
-import { logIn, logOut, signUp, useAuth } from './firebase';
+import { logIn, logOut, signUp, useAuth, db } from './firebase';
 import { async } from '@firebase/util';
+import { onSnapshot, collection } from "@firebase/firestore"
 
 function App() {
   const [fetchData, setFetchData] = useState({})
@@ -20,9 +21,22 @@ function App() {
       console.log(err)
     }
   }
+
   useEffect(() => {
     fetchDataFunction()
   }, [])
+
+  // FIRESTORE
+
+  const [locations, setLocations] = useState([])
+
+  console.log(locations[0].lat)
+  useEffect(
+    () => 
+    onSnapshot(collection(db, 'locations'), (snapshot) => 
+      setLocations(snapshot.docs.map(doc => doc.data()))
+      ), []
+  )
 
   // CREATE USER
 
@@ -40,6 +54,8 @@ function App() {
     }
     setLoading(false)
   }
+
+  // LOG IN USER
 
   async function handleLogIn() {
     setLoading(true)
@@ -61,6 +77,27 @@ function App() {
     setLoading(false)
   }
 
+  // SET PIN AT LOCATION
+
+  function LocationMarker() {
+    const [position, setPosition] = useState(null)
+    const map = useMapEvents({
+      click() {
+        map.locate()
+      },
+      locationfound(e) {
+        setPosition(e.latlng)
+        map.flyTo(e.latlng, map.getZoom())
+      },
+    })
+
+    return position === null ? null : (
+      <Marker position={position} >
+        <Popup>You did it here</Popup>
+      </Marker>
+    )
+  }
+
   return (
     <div>
     <div className='leaflet-container'>
@@ -69,7 +106,8 @@ function App() {
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
+          />
+          <LocationMarker />
       </MapContainer>
       </div>
 
@@ -85,9 +123,20 @@ function App() {
       <button disabled={loading || currentUser} onClick={handleSignUp}>Sign Up</button>
       <button disabled={loading || currentUser} onClick={handleLogIn}>Log In</button>
       <button disabled={loading || !currentUser} onClick={handleLogOut}>Log Out</button>
-
+      
+      <div>
+        <ul>
+          {locations.map((location) => (
+            <li>
+              {}
+            </li>
+          ))}
+        </ul>
       </div>
+
+    </div>
+
   );
 }
 
-export default App;
+export default App; 
