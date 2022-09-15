@@ -9,6 +9,8 @@ import {
   signInWithEmailAndPassword
 } from "firebase/auth";
 
+import { getFirestore } from "firebase/firestore";
+
 const firebaseConfig = {
 
   apiKey: "AIzaSyAe5WnwUJjsyQAD5_uHGoDnIp6Z4hHFDTs",
@@ -32,7 +34,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
+export const db = getFirestore(app)
 
 export function signUp(email, password) {
   return createUserWithEmailAndPassword(auth, email, password)
