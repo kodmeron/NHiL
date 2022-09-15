@@ -18,12 +18,12 @@ function App() {
   const [locations, setLocations] = useState([]);
   const locationsCollectionRef = collection(db, "locations")
 
-  useEffect(() => {
+  const getLocations = async () => {
+    const data = await getDocs(locationsCollectionRef);
+    setLocations(data.docs.map((doc) => ({ ...doc.data() })))
+  };
 
-    const getLocations = async () => {
-      const data = await getDocs(locationsCollectionRef);
-      setLocations(data.docs.map((doc) => ({ ...doc.data() })))
-    };
+  useEffect(() => {
     getLocations()
   }, []);
 
@@ -34,7 +34,7 @@ function App() {
   const emailRef = useRef()
   const passwordRef = useRef()
 
-  async function handleSignUp() {
+  const handleSignUp = async () => {
     setLoading(true)
     try {
       await signUp(emailRef.current.value, passwordRef.current.value)
@@ -46,7 +46,7 @@ function App() {
 
   // LOG IN USER
 
-  async function handleLogIn() {
+  const handleLogIn = async () => {
     setLoading(true)
     try {
       await logIn(emailRef.current.value, passwordRef.current.value)
@@ -56,7 +56,7 @@ function App() {
     setLoading(false)
   }
 
-  async function handleLogOut() {
+  const handleLogOut = async () => {
     setLoading(true)
     try {
       await logOut()
@@ -68,7 +68,7 @@ function App() {
 
   // SET PIN AT LOCATION
 
-  function LocationMarker() {
+  const LocationMarker = () => {
     const [position, setPosition] = useState(null)
     const map = useMapEvents({
       click() {
@@ -89,6 +89,7 @@ function App() {
 
   return (
     <div>
+      <Navbar currentUser={currentUser} handleLogOut={handleLogOut} />
       <div className='leaflet-container'>
         <MapContainer center={[59.32, 18.07]} zoom={14} scrollWheelZoom={false}>
           <TileLayer
@@ -97,9 +98,11 @@ function App() {
           />
           <LocationMarker />
 
-          {locations.map((location) => {
+          {currentUser ? locations.map((location) => {
             return <Marker position={[location.lat, location.long]}></Marker>
-          })};
+          })
+            : null
+          };
 
 
 
