@@ -1,42 +1,29 @@
 import './App.css';
 import "leaflet/dist/leaflet.css"
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
-import { Icon } from "leaflet";
+import { L } from "leaflet";
 import { useEffect, useState, useRef } from 'react';
 import { logIn, logOut, signUp, useAuth, db } from './firebase';
 import { async } from '@firebase/util';
-import { onSnapshot, collection } from "@firebase/firestore"
+import { onSnapshot, collection, getDocs } from "@firebase/firestore"
+import markerIcon from "./images/marker-icon.png"
 
 function App() {
-  const [fetchData, setFetchData] = useState({})
   const currentUser = useAuth()
-
-  const fetchDataFunction = async () => {
-    try {
-      const response = await fetch('http://localhost:3001/text')
-      const responseData = await response.json()
-      setFetchData(responseData)
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
-
-  useEffect(() => {
-    fetchDataFunction()
-  }, [])
 
   // FIRESTORE
 
-  const [locations, setLocations] = useState([])
+  const [locations, setLocations] = useState([]);
+  const locationsCollectionRef = collection(db, "locations")
 
-  console.log(locations[0].lat)
-  useEffect(
-    () => 
-    onSnapshot(collection(db, 'locations'), (snapshot) => 
-      setLocations(snapshot.docs.map(doc => doc.data()))
-      ), []
-  )
+  useEffect(() => {
+
+    const getLocations = async () => {
+      const data = await getDocs(locationsCollectionRef);
+      setLocations(data.docs.map((doc) => ({ ...doc.data() })))
+    };
+    getLocations()
+  }, []);
 
   // CREATE USER
 
@@ -66,7 +53,7 @@ function App() {
     }
     setLoading(false)
   }
-  
+
   async function handleLogOut() {
     setLoading(true)
     try {
@@ -100,19 +87,25 @@ function App() {
 
   return (
     <div>
-    <div className='leaflet-container'>
-      <h1>{!fetchData ? 'Fetching...' : fetchData.message}</h1>
-      <MapContainer center={[59.32, 18.07]} zoom={14} scrollWheelZoom={false}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      <div className='leaflet-container'>
+        <MapContainer center={[59.32, 18.07]} zoom={14} scrollWheelZoom={false}>
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
           <LocationMarker />
-      </MapContainer>
+
+          {locations.map((location) => {
+            return <Marker position={[location.lat, location.long]}></Marker>
+          })};
+
+
+
+        </MapContainer>
       </div>
 
       <div>
-        Currently logged in as: { currentUser?.email }
+        Currently logged in as: {currentUser?.email}
       </div>
 
       <div className='signup-form'>
@@ -123,16 +116,6 @@ function App() {
       <button disabled={loading || currentUser} onClick={handleSignUp}>Sign Up</button>
       <button disabled={loading || currentUser} onClick={handleLogIn}>Log In</button>
       <button disabled={loading || !currentUser} onClick={handleLogOut}>Log Out</button>
-      
-      <div>
-        <ul>
-          {locations.map((location) => (
-            <li>
-              {}
-            </li>
-          ))}
-        </ul>
-      </div>
 
     </div>
 
