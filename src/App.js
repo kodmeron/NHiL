@@ -1,5 +1,5 @@
 import './App.css';
-import "leaflet/dist/leaflet.css"
+
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import { L } from "leaflet";
 import { useEffect, useState, useRef } from 'react';
@@ -98,10 +98,10 @@ function App() {
           />
           <LocationMarker />
 
-          {currentUser ? locations.map((location) => {
+          {locations.map((location) => {
             return <Marker position={[location.lat, location.long]}></Marker>
           })
-            : null
+
           };
 
 
