@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
+  connectAuthEmulator,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
@@ -10,6 +11,7 @@ import {
 } from "firebase/auth";
 
 import { getFirestore } from "firebase/firestore";
+
 
 const firebaseConfig = {
 
@@ -34,6 +36,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+// firebase emulator
+//connectAuthEmulator(auth, "http://localhost:9099");
+
 export const db = getFirestore(app)
 
 export function signUp(email, password) {
