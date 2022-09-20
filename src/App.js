@@ -5,7 +5,7 @@ import { L } from "leaflet";
 import { useEffect, useState, useRef } from 'react';
 import { logIn, logOut, signUp, useAuth, db } from './firebase';
 import { async } from '@firebase/util';
-import { onSnapshot, collection, getDocs } from "@firebase/firestore"
+import { onSnapshot, collection, getDocs, addDoc } from "@firebase/firestore"
 import markerIcon from "./images/marker-icon.png"
 import { Link } from 'react-router-dom'
 import Navbar from './Components/Navbar';
@@ -13,10 +13,9 @@ import Navbar from './Components/Navbar';
 function App() {
   const currentUser = useAuth()
 
-  // FIRESTORE
-
+  // FIRESTORE READ
   const [locations, setLocations] = useState([]);
-  const locationsCollectionRef = collection(db, "locations")
+  const locationsCollectionRef = collection(db, "locations");
 
   const getLocations = async () => {
     const data = await getDocs(locationsCollectionRef);
@@ -26,6 +25,16 @@ function App() {
   useEffect(() => {
     getLocations()
   }, []);
+
+  // FIRESTORE CREATE
+
+  const [newLocationName, setNewLocationName] = useState("");
+  const [newLatitude, setNewLatitude] = useState("");
+  const [newLongitude, setNewLongitude] = useState("");
+
+  const createPin = async () => {
+    await addDoc(locationsCollectionRef, { lat: newLatitude, long: newLongitude, place: newLocationName });
+  }
 
   // CREATE USER
 
@@ -130,6 +139,27 @@ function App() {
         // <button disabled={loading || !currentUser} onClick={handleLogOut}>Log Out</button>
       }
 
+      <div>
+        {currentUser ? <>
+          <input placeholder='Name'
+            onChange={(event) => {
+              setNewLocationName(event.target.value);
+            }}
+          />
+          <input placeholder='Latitude'
+            onChange={(event) => {
+              setNewLatitude(event.target.value);
+            }}
+          />
+          <input placeholder='Longitude'
+            onChange={(event) => {
+              setNewLongitude(event.target.value);
+            }}
+          />
+          <button onClick={createPin}>Set new pin</button>
+        </>
+          : null}
+      </div>
 
       <div style={{ textAlign: 'center' }}>
         <h1>
