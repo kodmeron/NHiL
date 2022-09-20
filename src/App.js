@@ -36,7 +36,7 @@ function App() {
     await addDoc(locationsCollectionRef, { lat: newLatitude, long: newLongitude, place: newLocationName });
   }
 
-  // CREATE USER
+  // CREATE USER!
 
   const [loading, setLoading] = useState(false)
 
