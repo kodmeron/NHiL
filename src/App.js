@@ -38,14 +38,17 @@ function App() {
   const [newLocationName, setNewLocationName] = useState("");
   const [newLatitude, setNewLatitude] = useState("");
   const [newLongitude, setNewLongitude] = useState("");
-
+  const [sitOrStand, setSitOrStand] = useState(null)
   const createPin = async () => {
-    await addDoc(locationsCollectionRef, {
-      lat: newLatitude,
-      long: newLongitude,
-      place: newLocationName,
-    });
-  };
+    await addDoc(locationsCollectionRef,
+      {
+        lat: newLatitude,
+        long: newLongitude,
+        place: newLocationName,
+        user: currentUser.email,
+        stand: sitOrStand
+      });
+  }
 
   // CREATE USER!
 
@@ -134,9 +137,18 @@ function App() {
           />
           <LocationMarker />
           {locations.map((location) => {
-            return <Marker position={[location.lat, location.long]}></Marker>;
-          })}
-          ;
+            return <Marker position={[location.lat, location.long]}>
+              <Popup>{location && location.place} <br />
+                {location && location.user} <br />
+                {location && location.stand}
+              </Popup>
+            </Marker>
+          })
+
+          };
+
+
+
         </MapContainer>
       </div>
 
@@ -176,29 +188,36 @@ function App() {
       }
 
       <div>
-        {currentUser ? (
-          <>
-            <input
-              placeholder="Name"
-              onChange={(event) => {
-                setNewLocationName(event.target.value);
-              }}
-            />
-            <input
-              placeholder="Latitude"
-              onChange={(event) => {
-                setNewLatitude(event.target.value);
-              }}
-            />
-            <input
-              placeholder="Longitude"
-              onChange={(event) => {
-                setNewLongitude(event.target.value);
-              }}
-            />
-            <button onClick={createPin}>Set new pin</button>
-          </>
-        ) : null}
+        {currentUser ? <>
+          <input placeholder='Name'
+            onChange={(event) => {
+              setNewLocationName(event.target.value);
+            }}
+            required
+          />
+          <input placeholder='Latitude'
+            onChange={(event) => {
+              setNewLatitude(event.target.value);
+            }}
+            required
+          />
+          <input placeholder='Longitude'
+            onChange={(event) => {
+              setNewLongitude(event.target.value);
+            }}
+            required
+          />
+          <select onChange={(event) => {
+            setSitOrStand(event.target.value)
+          }}
+            required>
+            <option value="" hidden>Sitta eller stå</option>
+            <option value="Stå">Stå</option>
+            <option value="Sitta">Sitta</option>
+          </select>
+          <button onClick={createPin}>Set new pin</button>
+        </>
+          : null}
       </div>
 
       <div style={{ textAlign: "center" }}>
