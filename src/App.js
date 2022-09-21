@@ -34,7 +34,7 @@ function App() {
   const [newLongitude, setNewLongitude] = useState("");
 
   const createPin = async () => {
-    await addDoc(locationsCollectionRef, { lat: newLatitude, long: newLongitude, place: newLocationName });
+    await addDoc(locationsCollectionRef, { lat: newLatitude, long: newLongitude, place: newLocationName, user: currentUser.email });
   }
 
   // CREATE USER!
@@ -48,6 +48,7 @@ function App() {
     setLoading(true)
     try {
       await signUp(emailRef.current.value, passwordRef.current.value)
+      setError("")
     } catch (e) {
       if (e.message === 'Firebase: Error (auth/email-already-in-use).') {
         setError('Email already registered')
@@ -64,6 +65,7 @@ function App() {
     setLoading(true)
     try {
       await logIn(emailRef.current.value, passwordRef.current.value)
+      setError("")
     } catch (e) {
       if (e.message === 'Firebase: Error (auth/user-not-found).') {
         setError('Email not found')
@@ -137,7 +139,7 @@ function App() {
         {currentUser ? <>Currently logged in as: {currentUser?.email} </> : null}
       </div>
 
-      <h3 style={{ color: 'red', fontWeight: 'bold', textAlign: 'center' }}>{error}</h3>
+      {currentUser ? null : <h3 style={{ color: 'red', fontWeight: 'bold', textAlign: 'center' }}>{error}</h3>}
       {!currentUser ? <>
         <div className='Signup-form'>
           <input ref={emailRef} placeholder='Email' />
