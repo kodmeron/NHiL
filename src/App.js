@@ -12,6 +12,7 @@ import Navbar from './Components/Navbar';
 
 function App() {
   const currentUser = useAuth()
+  const [error, setError] = useState("")
 
   // FIRESTORE READ
   const [locations, setLocations] = useState([]);
@@ -43,12 +44,16 @@ function App() {
   const emailRef = useRef()
   const passwordRef = useRef()
 
-  const handleSignUp = async () => {
+  const handleSignUp = async (e) => {
     setLoading(true)
     try {
       await signUp(emailRef.current.value, passwordRef.current.value)
-    } catch (error) {
-      alert('Invalid Input')
+    } catch (e) {
+      if (e.message === 'Firebase: Error (auth/email-already-in-use).') {
+        setError('Email already registered')
+      }
+
+      console.log(e.message);
     }
     setLoading(false)
   }
@@ -59,8 +64,17 @@ function App() {
     setLoading(true)
     try {
       await logIn(emailRef.current.value, passwordRef.current.value)
-    } catch (error) {
-      alert('Error!')
+    } catch (e) {
+      if (e.message === 'Firebase: Error (auth/user-not-found).') {
+        setError('Email not found')
+      }
+      else if (e.message === 'Firebase: Error (auth/wrong-password).') {
+        setError('Incorrect Password')
+      }
+      else if (e.message === 'Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).') {
+        setError('Too many login attemps, please try again later')
+      }
+      console.log(e.message)
     }
     setLoading(false)
   }
@@ -123,6 +137,7 @@ function App() {
         {currentUser ? <>Currently logged in as: {currentUser?.email} </> : null}
       </div>
 
+      <h3 style={{ color: 'red', fontWeight: 'bold', textAlign: 'center' }}>{error}</h3>
       {!currentUser ? <>
         <div className='Signup-form'>
           <input ref={emailRef} placeholder='Email' />
