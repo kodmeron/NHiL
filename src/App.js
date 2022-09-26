@@ -9,7 +9,7 @@ import {
 } from "react-leaflet";
 import { L } from "leaflet";
 import { useEffect, useState, useRef } from "react";
-import { logIn, logOut, signUp, useAuth, db } from "./firebase";
+import { logIn, logOut, signUp, useAuth, db, signInWithGoogle, sendEmail } from "./firebase";
 import { async } from "@firebase/util";
 import { onSnapshot, collection, getDocs, addDoc } from "@firebase/firestore";
 import markerIcon from "./images/marker-icon.png";
@@ -180,6 +180,7 @@ function App() {
                 <button disabled={loading || currentUser} onClick={handleLogIn}>
                   Log In
                 </button>
+                <button disabled={loading || currentUser} onClick={signInWithGoogle}>Sign in with google</button>
               </div>
             </div>
           </>

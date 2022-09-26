@@ -7,12 +7,14 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendSignInLinkToEmail
 } from "firebase/auth";
 
 import { getFirestore } from "firebase/firestore";
-
-const {initializeAppCheck, ReCaptchaV3Provider} = require('firebase/app-check')
+import { actionCodeSettings } from "./Components/ActionCodeSettings";
 
 const firebaseConfig = {
 
@@ -38,9 +40,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider('6LfU8xwiAAAAAKRsET5Ziv4vRnINl4sYnEVnE2N3')
-})
+export const provider = new GoogleAuthProvider()
+
+export const signInWithGoogle = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      console.log(result)
+  }).catch((error) => {
+    console.log(error)
+  })
+}
+
 
 // firebase emulator
 //connectAuthEmulator(auth, "http://localhost:9099");
@@ -70,7 +80,7 @@ export function useAuth() {
   }, [])
 
   return currentUser
-}
+} 
 
 
 
