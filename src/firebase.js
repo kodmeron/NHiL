@@ -12,6 +12,7 @@ import {
 
 import { getFirestore } from "firebase/firestore";
 
+const {initializeAppCheck, ReCaptchaV3Provider} = require('firebase/app-check')
 
 const firebaseConfig = {
 
@@ -36,6 +37,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+const appCheck = initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider('6LfU8xwiAAAAAKRsET5Ziv4vRnINl4sYnEVnE2N3')
+})
 
 // firebase emulator
 //connectAuthEmulator(auth, "http://localhost:9099");
