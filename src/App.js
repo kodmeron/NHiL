@@ -8,7 +8,7 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import { L } from "leaflet";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { logIn, logOut, signUp, useAuth, db } from "./firebase";
 import { async } from "@firebase/util";
 import { onSnapshot, collection, getDocs, addDoc } from "@firebase/firestore";
@@ -105,7 +105,7 @@ function App() {
     setLoading(false);
   };
 
-  // SET PIN AT LOCATION
+  // SET PIN AT CURRENT LOCATION
 
   const LocationMarker = () => {
     const [position, setPosition] = useState(null);
@@ -121,9 +121,98 @@ function App() {
 
     return position === null ? null : (
       <Marker position={position}>
-        <Popup>You did it here</Popup>
+        <Popup>You are here</Popup>
       </Marker>
     );
+  };
+
+  // MOVABLE PIN WITH CORDINATES
+  const center = [59.33, 18.07];
+  const zoom = 13
+  function DraggableMarker({ map }) {
+
+    const [currentPosition, setCurrentPosition] = useState(() => map.getCenter())
+    const onClick = useCallback(() => {
+      map.setView(center, zoom)
+    }, [map])
+    const onMove = useCallback(() => {
+      setCurrentPosition(map.getCenter())
+    }, [map])
+
+    useEffect(() => {
+      map.on('move', onMove)
+      return () => {
+        map.off('move', onMove)
+      }
+    }, [map, onMove])
+
+    const [draggable, setDraggable] = useState(false)
+    const [position, setPosition] = useState(center)
+    const markerRef = useRef(null)
+    const eventHandlers = useMemo(
+      () => ({
+        dragend() {
+          const marker = markerRef.current
+          if (marker != null) {
+            setPosition(marker.getLatLng())
+          }
+        },
+      }),
+      [],
+    )
+    const toggleDraggable = useCallback(() => {
+      setDraggable((d) => !d)
+    }, [])
+
+    return (
+      <Marker
+        draggable={draggable}
+        eventHandlers={eventHandlers}
+        position={position}
+        ref={markerRef}>
+        <Popup minWidth={90}>
+          <span>
+            {draggable
+              ? <button onClick={toggleDraggable}>Stick pin</button>
+              : <div>
+                <button onClick={toggleDraggable}>Move pin</button>
+                <br />
+                <br />
+                {currentUser ? <>
+                  <input placeholder='Name'
+                    onChange={(event) => {
+                      setNewLocationName(event.target.value);
+                    }}
+                    required
+                  />
+                  <select onChange={(event) => {
+                    setSitOrStand(event.target.value)
+                  }}
+                    required>
+                    <option value="" hidden>Stand or squat</option>
+                    <option value="Stå">Stand</option>
+                    <option value="Sitta">Squat</option>
+                  </select>
+                  <input placeholder='Latitude'
+                    onChange={(event) => {
+                      setNewLatitude(event.target.value);
+                    }}
+                    required
+                  />
+                  <input placeholder='Longitude'
+                    onChange={(event) => {
+                      setNewLongitude(event.target.value);
+                    }}
+                    required
+                  />
+                  <button onClick={createPin}>Set new pin</button>
+                </>
+                  : null}
+              </div>}
+          </span>
+        </Popup>
+      </Marker>
+    )
   };
 
   return (
@@ -147,7 +236,7 @@ function App() {
 
           };
 
-
+          <DraggableMarker />
 
         </MapContainer>
       </div>
@@ -186,39 +275,6 @@ function App() {
         ) : null
         // <button disabled={loading || !currentUser} onClick={handleLogOut}>Log Out</button>
       }
-
-      <div>
-        {currentUser ? <>
-          <input placeholder='Name'
-            onChange={(event) => {
-              setNewLocationName(event.target.value);
-            }}
-            required
-          />
-          <input placeholder='Latitude'
-            onChange={(event) => {
-              setNewLatitude(event.target.value);
-            }}
-            required
-          />
-          <input placeholder='Longitude'
-            onChange={(event) => {
-              setNewLongitude(event.target.value);
-            }}
-            required
-          />
-          <select onChange={(event) => {
-            setSitOrStand(event.target.value)
-          }}
-            required>
-            <option value="" hidden>Sitta eller stå</option>
-            <option value="Stå">Stå</option>
-            <option value="Sitta">Sitta</option>
-          </select>
-          <button onClick={createPin}>Set new pin</button>
-        </>
-          : null}
-      </div>
 
       <div style={{ textAlign: "center" }}>
         <h1>
