@@ -129,11 +129,10 @@ function App() {
 
   // MOVABLE PIN WITH CORDINATES
   const center = [59.33, 18.07];
+  const [markerLat, setMarkerLat] = useState("")
+  const [markerLang, setMarkerLang] = useState("")
   function DraggableMarker() {
     const [draggable, setDraggable] = useState(false)
-    const [markerLat, setMarkerLat] = useState("")
-    const [markerLang, setMarkerLang] = useState("")
-
     const [position, setPosition] = useState(center)
     const markerRef = useRef(null)
     const eventHandlers = useMemo(
@@ -163,41 +162,8 @@ function App() {
           <span>
             {draggable
               ? <button onClick={toggleDraggable}>Stick pin</button>
-              : <div>
-                <button onClick={toggleDraggable}>Move pin</button>
-                <br />
-                <br />
-                {currentUser ? <>
-                  <input placeholder='Name'
-                    onChange={(event) => {
-                      setNewLocationName(event.target.value);
-                    }}
-                    required
-                  />
-                  <select onChange={(event) => {
-                    setSitOrStand(event.target.value)
-                  }}
-                    required>
-                    <option value="" hidden>Stand or squat</option>
-                    <option value="Stå">Stand</option>
-                    <option value="Sitta">Squat</option>
-                  </select>
-                  <input placeholder='Latitude' value={markerLat}
-                    onChange={(event) => {
-                      setNewLatitude(event.target.value);
-                    }}
-                    required
-                  />
-                  <input placeholder='Longitude' value={markerLang}
-                    onChange={(event) => {
-                      setNewLongitude(event.target.value);
-                    }}
-                    required
-                  />
-                  <button onClick={createPin}>Set new pin</button>
-                </>
-                  : null}
-              </div>}
+              : <button onClick={toggleDraggable}>Move pin</button>
+            }
           </span>
         </Popup>
       </Marker>
@@ -228,6 +194,39 @@ function App() {
           <DraggableMarker />
 
         </MapContainer>
+      </div>
+
+      <div>
+        {currentUser ? <>
+          <input placeholder='Name'
+            onChange={(event) => {
+              setNewLocationName(event.target.value);
+            }}
+            required
+          />
+          <select onChange={(event) => {
+            setSitOrStand(event.target.value)
+          }}
+            required>
+            <option value="" hidden>Stand or squat</option>
+            <option value="Stå">Stand</option>
+            <option value="Sitta">Squat</option>
+          </select>
+          <input placeholder='Latitude' value={markerLat}
+            onChange={(event) => {
+              setNewLatitude(event.target.value);
+            }}
+            required
+          />
+          <input placeholder='Longitude' value={markerLang}
+            onChange={(event) => {
+              setNewLongitude(event.target.value);
+            }}
+            required
+          />
+          <button onClick={createPin}>Set new pin</button>
+        </>
+          : null}
       </div>
 
       <div>
