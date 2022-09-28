@@ -15,10 +15,12 @@ import { onSnapshot, collection, getDocs, addDoc } from "@firebase/firestore";
 import markerIcon from "./images/marker-icon.png";
 import { Link } from "react-router-dom";
 import Navbar from "./Components/Navbar";
+import Rating from "./Components/Rating";
 
 function App() {
   const currentUser = useAuth();
   const [error, setError] = useState("");
+  const [rating, setRating] = useState(false)
 
   // FIRESTORE READ
   const [locations, setLocations] = useState([]);
@@ -125,6 +127,10 @@ function App() {
       </Marker>
     );
   };
+  const ratingFunction = () => {
+    setRating(prev => !prev)
+  }
+
 
   return (
     <div>
@@ -140,7 +146,9 @@ function App() {
             return <Marker position={[location.lat, location.long]}>
               <Popup>{location && location.place} <br />
                 {location && location.user} <br />
-                {location && location.stand}
+                {location && location.stand} <br />
+                <button onClick={ratingFunction}>Rate this place</button> <br />
+                {rating ? <Rating /> : null}
               </Popup>
             </Marker>
           })
@@ -151,6 +159,8 @@ function App() {
 
         </MapContainer>
       </div>
+
+
 
       <div>
         {currentUser ? (
