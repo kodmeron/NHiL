@@ -129,23 +129,7 @@ function App() {
   // MOVABLE PIN WITH CORDINATES
   const center = [59.33, 18.07];
   const zoom = 13
-  function DraggableMarker({ map }) {
-
-    const [currentPosition, setCurrentPosition] = useState(() => map.getCenter())
-    const onClick = useCallback(() => {
-      map.setView(center, zoom)
-    }, [map])
-    const onMove = useCallback(() => {
-      setCurrentPosition(map.getCenter())
-    }, [map])
-
-    useEffect(() => {
-      map.on('move', onMove)
-      return () => {
-        map.off('move', onMove)
-      }
-    }, [map, onMove])
-
+  function DraggableMarker() {
     const [draggable, setDraggable] = useState(false)
     const [position, setPosition] = useState(center)
     const markerRef = useRef(null)
