@@ -6,6 +6,7 @@ import {
   Marker,
   Popup,
   useMapEvents,
+  useMap
 } from "react-leaflet";
 import { L } from "leaflet";
 import { useEffect, useState, useRef, useMemo, useCallback } from "react";
@@ -128,9 +129,11 @@ function App() {
 
   // MOVABLE PIN WITH CORDINATES
   const center = [59.33, 18.07];
-  const zoom = 13
   function DraggableMarker() {
     const [draggable, setDraggable] = useState(false)
+    const [markerLat, setMarkerLat] = useState("")
+    const [markerLang, setMarkerLang] = useState("")
+
     const [position, setPosition] = useState(center)
     const markerRef = useRef(null)
     const eventHandlers = useMemo(
@@ -139,6 +142,8 @@ function App() {
           const marker = markerRef.current
           if (marker != null) {
             setPosition(marker.getLatLng())
+            setMarkerLat(marker.getLatLng().lat)
+            setMarkerLang(marker.getLatLng().lng)
           }
         },
       }),
@@ -177,13 +182,13 @@ function App() {
                     <option value="Stå">Stand</option>
                     <option value="Sitta">Squat</option>
                   </select>
-                  <input placeholder='Latitude'
+                  <input placeholder='Latitude' value={markerLat}
                     onChange={(event) => {
                       setNewLatitude(event.target.value);
                     }}
                     required
                   />
-                  <input placeholder='Longitude'
+                  <input placeholder='Longitude' value={markerLang}
                     onChange={(event) => {
                       setNewLongitude(event.target.value);
                     }}
