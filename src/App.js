@@ -114,26 +114,28 @@ function App() {
   const center = [59.33, 18.07];
   const [markerLat, setMarkerLat] = useState("")
   const [markerLang, setMarkerLang] = useState("")
+
   function DraggableMarker() {
-    const [draggable, setDraggable] = useState(false)
+    const [draggable, setDraggable] = useState(true)
     const [position, setPosition] = useState(center)
     const markerRef = useRef(null)
-    const eventHandlers = useMemo(
-      () => ({
-        dragend() {
-          const marker = markerRef.current
-          if (marker != null) {
-            setPosition(marker.getLatLng())
-            setMarkerLat(marker.getLatLng().lat)
-            setMarkerLang(marker.getLatLng().lng)
-          }
-        },
-      }),
+    const eventHandlers = useMemo(() => ({
+      dragend() {
+        const marker = markerRef.current
+        if (marker != null) {
+          setPosition(marker.getLatLng())
+          setMarkerLat(marker.getLatLng().lat)
+          setMarkerLang(marker.getLatLng().lng)
+        }
+      },
+    }),
       [],
     )
     const toggleDraggable = useCallback(() => {
       setDraggable((d) => !d)
     }, [])
+
+    console.log(position)
 
     return (
       <Marker
