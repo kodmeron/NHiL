@@ -9,7 +9,7 @@ import {
 } from "react-leaflet";
 import { L } from "leaflet";
 import { useEffect, useState, useRef } from "react";
-import { logIn, logOut, signUp, useAuth, db, signInWithGoogle, sendEmail } from "./firebase";
+import { logIn, logOut, signUp, useAuth, db, signInWithGoogle, sendEmail, appCheck } from "./firebase";
 import { async } from "@firebase/util";
 import { onSnapshot, collection, getDocs, addDoc } from "@firebase/firestore";
 import markerIcon from "./images/marker-icon.png";
@@ -94,6 +94,8 @@ function App() {
     }
     setLoading(false);
   };
+
+
 
   const handleLogOut = async () => {
     setLoading(true);
@@ -182,6 +184,11 @@ function App() {
                 </button>
                 <button disabled={loading || currentUser} onClick={signInWithGoogle}>Sign in with google</button>
               </div>
+              <input ref={emailRef} placeholder="Email" />
+
+
+
+              <button disabled={loading || currentUser} onClick={sendEmail}>Log in with Email Link</button>
             </div>
           </>
         ) : null
