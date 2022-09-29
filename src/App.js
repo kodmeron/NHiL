@@ -6,9 +6,11 @@ import {
   Marker,
   Popup,
   useMapEvents,
+  useMap
 } from "react-leaflet";
 import { L } from "leaflet";
-import { useEffect, useState, useRef } from "react";
+
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { logIn, logOut, signUp, useAuth, db, signInWithGoogle, sendEmail, appCheck } from "./firebase";
 import { async } from "@firebase/util";
 import { onSnapshot, collection, getDocs, addDoc } from "@firebase/firestore";
@@ -34,23 +36,6 @@ function App() {
   useEffect(() => {
     getLocations();
   }, []);
-
-  // FIRESTORE CREATE
-
-  const [newLocationName, setNewLocationName] = useState("");
-  const [newLatitude, setNewLatitude] = useState("");
-  const [newLongitude, setNewLongitude] = useState("");
-  const [sitOrStand, setSitOrStand] = useState(null)
-  const createPin = async () => {
-    await addDoc(locationsCollectionRef,
-      {
-        lat: newLatitude,
-        long: newLongitude,
-        place: newLocationName,
-        user: currentUser.email,
-        stand: sitOrStand
-      });
-  }
 
   // CREATE USER!
 
@@ -109,7 +94,7 @@ function App() {
     setLoading(false);
   };
 
-  // SET PIN AT LOCATION
+  // SET PIN AT CURRENT LOCATION
 
   const LocationMarker = () => {
     const [position, setPosition] = useState(null);
@@ -125,7 +110,7 @@ function App() {
 
     return position === null ? null : (
       <Marker position={position}>
-        <Popup>You did it here</Popup>
+        <Popup>You are here</Popup>
       </Marker>
     );
   };
@@ -133,6 +118,64 @@ function App() {
     setRating(prev => !prev)
   }
 
+
+  // MOVABLE PIN WITH CORDINATES
+  const center = [59.33, 18.07];
+  const [markerLat, setMarkerLat] = useState("")
+  const [markerLang, setMarkerLang] = useState("")
+
+  function DraggableMarker() {
+    const [draggable, setDraggable] = useState(true)
+    const [position, setPosition] = useState(center)
+    const markerRef = useRef(null)
+    const eventHandlers = useMemo(() => ({
+      dragend() {
+        const marker = markerRef.current
+        if (marker != null) {
+          setPosition(marker.getLatLng())
+          setMarkerLat(marker.getLatLng().lat)
+          setMarkerLang(marker.getLatLng().lng)
+        }
+      },
+    }),
+      [],
+    )
+    const toggleDraggable = useCallback(() => {
+      setDraggable((d) => !d)
+    }, [])
+
+    return (
+      <Marker
+        draggable={draggable}
+        eventHandlers={eventHandlers}
+        position={position}
+        ref={markerRef}>
+        <Popup minWidth={90}>
+          <span>
+            {draggable
+              ? <button onClick={toggleDraggable}>Stick pin</button>
+              : <button onClick={toggleDraggable}>Move pin</button>
+            }
+          </span>
+        </Popup>
+      </Marker>
+    )
+  };
+
+  // FIRESTORE CREATE
+
+  const [newLocationName, setNewLocationName] = useState("");
+  const [sitOrStand, setSitOrStand] = useState(null)
+  const createPin = async () => {
+    await addDoc(locationsCollectionRef,
+      {
+        lat: markerLat,
+        long: markerLang,
+        place: newLocationName,
+        user: currentUser.email,
+        stand: sitOrStand
+      });
+  }
 
   return (
     <div>
@@ -157,12 +200,45 @@ function App() {
 
           };
 
-
+          <DraggableMarker />
 
         </MapContainer>
       </div>
 
 
+
+      <div>
+        {currentUser ? <>
+          <input placeholder='Name'
+            onChange={(event) => {
+              setNewLocationName(event.target.value);
+            }}
+            required
+          />
+          <select onChange={(event) => {
+            setSitOrStand(event.target.value)
+          }}
+            required>
+            <option value="" hidden>Stand or squat</option>
+            <option value="Stå">Stand</option>
+            <option value="Sitta">Squat</option>
+          </select>
+          <input placeholder='Latitude' value={markerLat}
+            onChange={(event) => {
+              setMarkerLat(event.target.value);
+            }}
+            required disabled
+          />
+          <input placeholder='Longitude' value={markerLang}
+            onChange={(event) => {
+              setMarkerLang(event.target.value);
+            }}
+            required disabled
+          />
+          <button onClick={createPin}>Set new pin</button>
+        </>
+          : null}
+      </div>
 
       <div>
         {currentUser ? (
@@ -199,39 +275,6 @@ function App() {
         ) : null
         // <button disabled={loading || !currentUser} onClick={handleLogOut}>Log Out</button>
       }
-
-      <div>
-        {currentUser ? <>
-          <input placeholder='Name'
-            onChange={(event) => {
-              setNewLocationName(event.target.value);
-            }}
-            required
-          />
-          <input placeholder='Latitude'
-            onChange={(event) => {
-              setNewLatitude(event.target.value);
-            }}
-            required
-          />
-          <input placeholder='Longitude'
-            onChange={(event) => {
-              setNewLongitude(event.target.value);
-            }}
-            required
-          />
-          <select onChange={(event) => {
-            setSitOrStand(event.target.value)
-          }}
-            required>
-            <option value="" hidden>Sitta eller stå</option>
-            <option value="Stå">Stå</option>
-            <option value="Sitta">Sitta</option>
-          </select>
-          <button onClick={createPin}>Set new pin</button>
-        </>
-          : null}
-      </div>
 
       <div style={{ textAlign: "center" }}>
         <h1>
