@@ -34,23 +34,6 @@ function App() {
     getLocations();
   }, []);
 
-  // FIRESTORE CREATE
-
-  const [newLocationName, setNewLocationName] = useState("");
-  const [newLatitude, setNewLatitude] = useState("");
-  const [newLongitude, setNewLongitude] = useState("");
-  const [sitOrStand, setSitOrStand] = useState(null)
-  const createPin = async () => {
-    await addDoc(locationsCollectionRef,
-      {
-        lat: newLatitude,
-        long: newLongitude,
-        place: newLocationName,
-        user: currentUser.email,
-        stand: sitOrStand
-      });
-  }
-
   // CREATE USER!
 
   const [loading, setLoading] = useState(false);
@@ -170,6 +153,21 @@ function App() {
     )
   };
 
+  // FIRESTORE CREATE
+
+  const [newLocationName, setNewLocationName] = useState("");
+  const [sitOrStand, setSitOrStand] = useState(null)
+  const createPin = async () => {
+    await addDoc(locationsCollectionRef,
+      {
+        lat: markerLat,
+        long: markerLang,
+        place: newLocationName,
+        user: currentUser.email,
+        stand: sitOrStand
+      });
+  }
+
   return (
     <div>
       <Navbar currentUser={currentUser} handleLogOut={handleLogOut} />
@@ -214,15 +212,15 @@ function App() {
           </select>
           <input placeholder='Latitude' value={markerLat}
             onChange={(event) => {
-              setNewLatitude(event.target.value);
+              setMarkerLat(event.target.value);
             }}
-            required
+            required disabled
           />
           <input placeholder='Longitude' value={markerLang}
             onChange={(event) => {
-              setNewLongitude(event.target.value);
+              setMarkerLang(event.target.value);
             }}
-            required
+            required disabled
           />
           <button onClick={createPin}>Set new pin</button>
         </>
