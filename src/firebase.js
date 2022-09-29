@@ -10,7 +10,9 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  sendSignInLinkToEmail
+  sendSignInLinkToEmail,
+  isSignInWithEmailLink,
+  signInWithEmailLink
 } from "firebase/auth";
 
 import { getFirestore } from "firebase/firestore";
@@ -62,9 +64,6 @@ export const db = getFirestore(app)
 
 export function signUp(email, password) {
   return createUserWithEmailAndPassword(auth, email, password)
-}
-export const sendEmail = (email) => {
-  sendSignInLinkToEmail(auth, email, actionCodeSettings)
 }
 
 export function logIn(email, password) {

@@ -192,13 +192,8 @@ function App() {
                 <button disabled={loading || currentUser} onClick={handleLogIn}>
                   Log In
                 </button>
-                <button disabled={loading || currentUser} onClick={signInWithGoogle}>Sign in with google</button>
+                <button className="" onClick={signInWithGoogle}>Login with google</button>
               </div>
-              <input ref={emailRef} placeholder="Email" />
-
-
-
-              <button disabled={loading || currentUser} onClick={sendEmail}>Log in with Email Link</button>
             </div>
           </>
         ) : null
