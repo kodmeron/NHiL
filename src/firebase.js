@@ -67,19 +67,6 @@ export const sendEmail = (email) => {
   sendSignInLinkToEmail(auth, email, actionCodeSettings)
 }
 
-export const appCheck = initializeAppCheck(app, {
-   provider: new ReCaptchaV3Provider('6LfU8xwiAAAAAKRsET5Ziv4vRnINl4sYnEVnE2N3'),
-   isTokenAutoRefreshEnabled: true
-})
-
-getToken(appCheck)
-  .then(() => {
-  console.log('success')
-  })
-  .catch(() => {
-    console.log('error')
-})
-
 export function logIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password)
 }
