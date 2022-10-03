@@ -9,7 +9,7 @@
 <br />
 <div align="center">
   <a href="">
-    <img src="/images/gaben.jpg" alt="Logo" width="200" height="200">
+    <img src="src\images\gaben.jpg" alt="Logo" width="200" height="200">
   </a>
 
   <h3 align="center">NHiL</h3>
