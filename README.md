@@ -1,63 +1,98 @@
-# TTFHW
+<a name="readme-top"></a>
 
-## Database
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
 
-To start code on databases you have to the database structure and what patch the databases are in so if you decide to modify the database you know which patch and version on the database we know
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="images/gaben.jpg" alt="Logo" width="200" height="200">
+  </a>
 
-## Backend
+  <h3 align="center">NHiL</h3>
 
-```
- git clone https://github.com/kodmeron/crackend.git
- cd project
- npm i
-```
+  <p align="center">
+    Nöden Har ingen Lag!
+  </p>
+</div>
 
-## Frontend
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-```
- git clone https://github.com/kodmeron/NHiL.git
- cd project
- npm i
- npm start
-```
+<!-- ABOUT THE PROJECT -->
 
-## Testers
+## About The Project
 
-The testers needs to know what test-driven developement we use so that the testers know which documentain to watch and how to write the test cases before the software is fully developed
+lorem lorem lorem
 
-# ONBOARDING
+Use the `README.md` to get started.
 
-### Prerequisites
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-> node
->
-> Docker
->
-> Heroku
+### Built With
 
-### Build / Run
+- [![React][react.js]][react-url]
 
-> npm install
->
-> npm start
->
-> node server.js
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Configuration
+<!-- GETTING STARTED -->
 
-**Network Dependencies**
+## Getting Started
 
-> MongoDB
+### Installation
 
-**File Dependencies**
-**Internal Behavior**
-**Debug Parameters**
+1. Clone the repo
+   ```sh
+   git clone https://github.com/kodmeron/NHiL.git
+   ```
+1. Install NPM packages
+   ```sh
+   npm install
+   ```
+1. Start
+   ```js
+   npm start
+   ```
 
-### Usage
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Load image of app here
+<!-- CONTRIBUTING -->
 
-### GIT
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 **Git commit structure**
 
@@ -93,65 +128,23 @@ The commit type can include the following:
 >
 > _empty commit messages_
 
-### Directory Structure
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-```javascript
-���src
- ┣ ���App.css
-  ┣ ���App.js
-   ┣ ���index.css
-    ┗ ���index.js
-```
+<!-- CONTACT -->
 
-# SCRIPT
+## Contact
 
-## Database
+NHiL - [@nhil.boys](https://twitter.com/NHiL)
 
-## Backend
+Project Link: [https://github.com/kodmeron/NHiL](https://github.com/kodmeron/NHiL)
 
-Fetch Docker container:
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-```
-$ docker pull kodmeron/crackend
-```
+<!-- ACKNOWLEDGMENTS -->
 
-To list your Docker containers:
+## TEST
 
-```
-$ docker images
-```
-
-Run the container:
-
-```
-$ docker run --rm -p 8080:3000 kodmeron/crackend
-```
-
-Ctrl + c to quit.
-
-## Frontend
-
-Clone the NHiL github repo:
-
-```
-$ git clone https://github.com/kodmeron/NHiL.git
-```
-
-cd into the project and write:
-
-```
-$ npm install
-```
-
-In order to start the project, write:
-
-```
-$ npm start
-```
-
-# TEST
-
-## Jasmine
+### Jasmine
 
 If Jasmine for some reason isn't installed:
 
@@ -165,7 +158,7 @@ Run the tests!!
 
 > npm test
 
-# TEST API
+### TEST API
 
 Install jest and supertest:
 
@@ -193,11 +186,11 @@ This is what you should see:
 Make a folder called \_\_tests\_\_ and make a file called supertest.js in the folder
 
 ```
-> mkdir __tests__
+mkdir __tests__
 
-> cd __tests__
+cd __tests__
 
-> touch supertest.js
+touch supertest.js
 
 ```
 
@@ -232,3 +225,34 @@ describe("Testing petshop", () => {
   });
 });
 ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/kodmeron/NHiL.svg?style=for-the-badge
+[contributors-url]: https://github.com/kodmeron/NHiL/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/kodmeron/NHiL.svg?style=for-the-badge
+[forks-url]: https://github.com/kodmeron/NHiL/network/members
+[stars-shield]: https://img.shields.io/github/stars/kodmeron/NHiL.svg?style=for-the-badge
+[stars-url]: https://github.com/kodmeron/NHiL/stargazers
+[issues-shield]: https://img.shields.io/github/issues/kodmeron/NHiL.svg?style=for-the-badge
+[issues-url]: https://github.com/kodmeron/NHiL/issues
+[product-screenshot]: images/screenshot.png
+[next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[next-url]: https://nextjs.org/
+[react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[react-url]: https://reactjs.org/
+[vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
+[vue-url]: https://vuejs.org/
+[angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
+[angular-url]: https://angular.io/
+[svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
+[svelte-url]: https://svelte.dev/
+[laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[laravel-url]: https://laravel.com
+[bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[bootstrap-url]: https://getbootstrap.com
+[jquery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
+[jquery-url]: https://jquery.com
