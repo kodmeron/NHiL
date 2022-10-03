@@ -8,8 +8,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/gaben.jpg" alt="Logo" width="200" height="200">
+  <a href="">
+    <img src="/images/gaben.jpg" alt="Logo" width="200" height="200">
   </a>
 
   <h3 align="center">NHiL</h3>
