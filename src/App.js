@@ -268,7 +268,7 @@ function App() {
                 <button disabled={loading || currentUser} onClick={handleLogIn}>
                   Log In
                 </button>
-                <button className="" onClick={signInWithGoogle}>Login with google</button>
+                <button className="login-with-google-btn" onClick={signInWithGoogle}>Login with google</button>
               </div>
             </div>
           </>
