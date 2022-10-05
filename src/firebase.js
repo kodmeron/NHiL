@@ -13,6 +13,7 @@ import {
   sendSignInLinkToEmail,
   isSignInWithEmailLink,
   signInWithEmailLink,
+  sendEmailVerification
 } from "firebase/auth";
 
 import { getFirestore } from "firebase/firestore";
@@ -22,6 +23,8 @@ import {
   initializeAppCheck,
   ReCaptchaV3Provider,
 } from "firebase/app-check";
+
+import { actionCodeSettings } from "./Components/ActionCodeSettings";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAe5WnwUJjsyQAD5_uHGoDnIp6Z4hHFDTs",
@@ -76,6 +79,22 @@ export function logIn(email, password) {
 
 export function logOut() {
   return signOut(auth);
+}
+
+
+
+export function sendEmail(email) {
+  if (isSignInWithEmailLink(auth, window.location.href)) {
+  let email = window.localStorage.getItem('emailForSignIn');
+  if (!email) {
+        email = window.prompt('Please provide your email for confirmation');
+  }
+}
+  console.log(email)
+  return sendSignInLinkToEmail(auth, email, actionCodeSettings)
+    .then(() => {
+    window.localStorage.setItem('emailForSignIn', email);
+  })
 }
 
 // Custom Hook

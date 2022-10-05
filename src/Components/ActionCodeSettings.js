@@ -1,5 +1,5 @@
 export const actionCodeSettings = {
-  url: 'https://localhost:3000',
+  url: 'https://nhil-4830c.web.app',
   handleCodeInApp: true,
   dynamicLinkDomain: 'nhil.page.link'
 }

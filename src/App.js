@@ -11,7 +11,7 @@ import {
 import { L } from "leaflet";
 
 import { useEffect, useState, useRef, useMemo, useCallback } from "react";
-import { logIn, logOut, signUp, useAuth, db, signInWithGoogle, sendEmail, appCheck } from "./firebase";
+import { logIn, logOut, signUp, useAuth, db, signInWithGoogle, sendEmail, appCheck, } from "./firebase";
 import { async } from "@firebase/util";
 import { onSnapshot, collection, getDocs, addDoc } from "@firebase/firestore";
 import markerIcon from "./images/marker-icon.png";
@@ -49,6 +49,7 @@ function App() {
     try {
       await signUp(emailRef.current.value, passwordRef.current.value);
       setError("");
+      await emailRef.user.emailVerification(emailRef);
     } catch (e) {
       if (e.message === "Firebase: Error (auth/email-already-in-use).") {
         setError("Email already registered");
@@ -58,6 +59,16 @@ function App() {
     }
     setLoading(false);
   };
+
+  const handleSendEmail = async () => {
+    try {
+      await sendEmail(emailRef.current.value)
+      console.log(emailRef.current.value)
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
 
   // LOG IN USER
 
@@ -269,6 +280,7 @@ function App() {
                   Log In
                 </button>
                 <button className="" onClick={signInWithGoogle}>Login with google</button>
+                <button onClick={handleSendEmail}>send mail</button>
               </div>
             </div>
           </>
