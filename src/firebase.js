@@ -64,7 +64,7 @@ const appCheck = initializeAppCheck(app, {
   provider: new ReCaptchaV3Provider("6LfU8xwiAAAAAKRsET5Ziv4vRnINl4sYnEVnE2N3"),
 });
 
-// firebase emulator
+// firebase emulator!
 //connectAuthEmulator(auth, "http://localhost:9099");
 
 export const db = getFirestore(app);
